@@ -9,8 +9,6 @@ class Main implements EventListenerObject {
     btn.addEventListener("click", this);
     let btnBuscar = this.recuperarElemento("btnBuscar");
     btnBuscar.addEventListener("click", this);
-    let btnLogin = this.recuperarElemento("btnLogin");
-    btnLogin.addEventListener("click", this);
     let btnPost = this.recuperarElemento("btnPost");
     btnPost.addEventListener("click", this);
   }
