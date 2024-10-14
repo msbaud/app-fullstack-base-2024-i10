@@ -13,6 +13,26 @@ app.use(express.static("/home/node/app/static/"));
 
 //=======[ Main module code ]==================================================
 
+app.post("/device/new", function (req, res) {
+  const { name, description, type } = req.body;
+  utils.query(
+    "INSERT INTO Devices (name, description, type, state) VALUES (?, ?, ?, ?)",
+    [name, description, type, false], // Asume que el estado inicial es apagado.
+    (error, result) => {
+      if (error) {
+        res.status(409).send(error.sqlMessage);
+      } else {
+        res
+          .status(201)
+          .send({
+            message: "Dispositivo creado correctamente",
+            id: result.insertId,
+          });
+      }
+    }
+  );
+});
+
 app.post("/device/", function (req, res) {
   utils.query(
     "update Devices set state=" + req.body.status + " where id=" + req.body.id,
