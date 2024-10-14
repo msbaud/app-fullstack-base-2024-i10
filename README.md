@@ -28,7 +28,7 @@ Para mantener la prolijidad del código desarrollado de manera automática, se u
 
 En el archivo `.vscode/settings.json` se configuró como formateador por defecto para el proyecto, con ejecución automática tras el guardado de cualquier archivo.
 
-Por otra parte, se realizó el registro de avance de los cambios del código realizando múltiples commits vinculados a las funcionalidades implementadas.
+Respecto de la metodología de desarrollo, se realizó el registro de avance de los cambios del código realizando múltiples commits vinculados a las funcionalidades implementadas.
 
 ### Front-end
 
@@ -38,12 +38,12 @@ Desde el punto de vista visual, se realizaron las siguientes modificaciones:
 - La lista de dispositivos se pasó a un formato de tarjetas dentro de una grilla responsiva que se adapta al ancho de la pantalla.
 - Se cambiaron los íconos a la última versión de [Material Design](https://fonts.google.com/icons).
 - Se modificó un botón para agregar nuevos dispositivos, con el ícono `+` correspondiente. Al presionar este botón se dispara un modal que permite al usuario introducir los campos de `Nombre`, `Descripción` y `Tipo` del dispositivo. Una vez ingresados los datos se puede guardar o cancelar la acción.
-
-![agregar](doc/agregar-dispositivo.png)
-
 - En las tarjetas para cada dispositivo, se agregó el ícono de un lápiz que dispara un modal para editar los valores del dispositivo, y también para eliminar el dispsitivo completamente. Para ello se presentan tres botones, `Guardar`, `Cancelar` y `Borrar`.
 
-![editar](doc/editar-dispositivo.png)
+<div style="display: flex; justify-content: space-around;">
+  <img src="doc/agregar-dispositivo.png" alt="Agregar" style="width: 45%;">
+  <img src="doc/editar-dispositivo.png" alt="Editar" style="width: 45%;">
+</div>
 
 ### Back-end
 
