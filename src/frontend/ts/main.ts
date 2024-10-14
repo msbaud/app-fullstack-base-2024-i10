@@ -1,3 +1,6 @@
+/**
+ * Clase principal de la aplicación
+ */
 class Main implements EventListenerObject {
   constructor() {
     let btn = this.recuperarElemento("btnAgregar");
@@ -7,6 +10,7 @@ class Main implements EventListenerObject {
     this.buscarDevices();
   }
 
+  /** Maneja los eventos de la página */
   handleEvent(object: Event): void {
     let idDelElemento = (<HTMLElement>object.target).id;
     if (idDelElemento == "btnAgregar") {
@@ -25,7 +29,7 @@ class Main implements EventListenerObject {
       xmlHttpPost.onreadystatechange = () => {
         if (xmlHttpPost.readyState === 4 && xmlHttpPost.status === 200) {
           let json = JSON.parse(xmlHttpPost.responseText);
-          alert(json.id);
+          console.log(json);
         }
       };
 
@@ -35,6 +39,7 @@ class Main implements EventListenerObject {
     }
   }
 
+  /** Busca los dispositivos en la base de datos y los muestra en el DOM */
   private buscarDevices(): void {
     let xmlHttp = new XMLHttpRequest();
 
@@ -98,6 +103,7 @@ class Main implements EventListenerObject {
     xmlHttp.send();
   }
 
+  /** Abre el modal para agregar un dispositivo */
   private abrirAgregarModal(): void {
     const modal = document.getElementById("editar-modal") as HTMLDivElement;
     const nameInput = document.getElementById(
@@ -123,8 +129,6 @@ class Main implements EventListenerObject {
     nameInput.value = "";
     descriptionInput.value = "";
     typeInput.value = "";
-
-    // Hide the delete button for the add modal
     deleteButton.style.display = "none";
 
     saveButton.onclick = () => {
@@ -132,7 +136,7 @@ class Main implements EventListenerObject {
         name: nameInput.value,
         description: descriptionInput.value,
         type: parseInt(typeInput.value, 10),
-        state: false, // Default state for new devices
+        state: false,
       };
       this.agregarDevice(newDevice);
       modal.style.display = "none";
@@ -145,6 +149,7 @@ class Main implements EventListenerObject {
     modal.style.display = "block";
   }
 
+  /** Agrega un dispositivo a la base de datos. Al finalizar actualiza la lista de dispositivos */
   private agregarDevice(device: any): void {
     fetch("http://localhost:8000/device/new", {
       method: "POST",
@@ -156,7 +161,7 @@ class Main implements EventListenerObject {
       .then((response) => {
         if (response.ok) {
           alert("Dispositivo agregado correctamente");
-          this.buscarDevices(); // Refresh the list after adding the device
+          this.buscarDevices();
         } else {
           alert("Error al agregar el dispositivo");
         }
@@ -167,6 +172,7 @@ class Main implements EventListenerObject {
       });
   }
 
+  /** Abre el modal para editar un dispositivo y lo graba en la base de datos*/
   private abrirEditModal(device: any): void {
     const modal = document.getElementById("editar-modal") as HTMLDivElement;
     const nameInput = document.getElementById(
@@ -214,6 +220,7 @@ class Main implements EventListenerObject {
     modal.style.display = "block";
   }
 
+  /** Actualiza un dispositivo en la base de datos. Al finalizar actualiza la lista de dispositivos */
   private actualizarDevice(device: any): void {
     fetch(`http://localhost:8000/device/${device.id}`, {
       method: "PUT",
@@ -225,7 +232,7 @@ class Main implements EventListenerObject {
       .then((response) => {
         if (response.ok) {
           console.log("Dispositivo actualizado correctamente");
-          this.buscarDevices(); // Actualiza la lista cuando un dispositivo fue modificado.
+          this.buscarDevices();
         } else {
           alert("Error al actualizar el dispositivo");
         }
@@ -236,6 +243,7 @@ class Main implements EventListenerObject {
       });
   }
 
+  /** Borra un dispositivo de la base de datos */
   private borrarDevice(deviceId: number): void {
     fetch(`http://localhost:8000/device/${deviceId}`, {
       method: "DELETE",
@@ -263,6 +271,7 @@ class Main implements EventListenerObject {
       });
   }
 
+  /** Recupera un elemento del DOM */
   private recuperarElemento(id: string): HTMLInputElement {
     return <HTMLInputElement>document.getElementById(id);
   }
