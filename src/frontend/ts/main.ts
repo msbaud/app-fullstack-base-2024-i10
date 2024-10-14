@@ -216,6 +216,7 @@ class Main implements EventListenerObject {
     nameInput.value = device.name;
     descriptionInput.value = device.description;
     typeInput.value = device.type.toString();
+    botonBorrar.style.display = "block";
 
     botonGuardar.onclick = () => {
       device.name = nameInput.value;
