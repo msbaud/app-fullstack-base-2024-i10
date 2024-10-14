@@ -37,6 +37,7 @@ Se modificó el archivo de configuración de Docker `docker-compose.yml` para ga
 Teniendo en cuenta la parte visual y experiencia de usuario, se realizaron las siguientes modificaciones:
 
 - Se cambió el estilo de todos los elementos siguiendo una paleta de colores inspirada en el videojuego `Cyberpunk 2077`.
+- Se agregó como favicon un ícono genérico para dispositivos/sensores inalámbricos.
 - La lista de dispositivos se pasó a un formato de tarjetas dentro de una grilla responsiva que se adapta al ancho de la pantalla.
 - Se modificó la actualización de la lista de dispositivos para que se realice de manera automática. Al mismo tiempo, se mantuvo el botón `Buscar` para actualizar la lista de forma manual.
 - Se cambiaron los íconos a la última versión de [Material Design](https://fonts.google.com/icons).
