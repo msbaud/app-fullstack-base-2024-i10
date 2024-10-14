@@ -1,63 +1,21 @@
 class Main implements EventListenerObject {
-  private nombre: string = "matias";
-  private users: Array<Usuario> = new Array();
-
   constructor() {
-    this.users.push(new Usuario("mramos", "123132"));
-
     let btn = this.recuperarElemento("btnAgregar");
     btn.addEventListener("click", this);
     let btnBuscar = this.recuperarElemento("btnBuscar");
     btnBuscar.addEventListener("click", this);
-    let btnPost = this.recuperarElemento("btnPost");
-    btnPost.addEventListener("click", this);
+    this.buscarDevices();
   }
+
   handleEvent(object: Event): void {
     let idDelElemento = (<HTMLElement>object.target).id;
     if (idDelElemento == "btnAgregar") {
-      let divAgregar = this.recuperarElemento("divAgregar");
-      divAgregar.hidden = !divAgregar.hidden;
+      this.abrirAgregarModal();
     } else if (idDelElemento === "btnBuscar") {
       console.log("Buscando!");
       this.buscarDevices();
-    } else if (idDelElemento === "btnLogin") {
-      console.log("login");
-      let iUser = this.recuperarElemento("userName");
-      let iPass = this.recuperarElemento("userPass");
-      let usuarioNombre: string = iUser.value;
-      let usuarioPassword: string = iPass.value;
-
-      if (usuarioNombre.length >= 4 && usuarioPassword.length >= 6) {
-        console.log("Voy al servidor... ejecuto consulta");
-        let usuario: Usuario = new Usuario(usuarioNombre, usuarioPassword);
-        let checkbox = this.recuperarElemento("cbRecor");
-
-        console.log(usuario, checkbox.checked);
-        iUser.disabled = true;
-        (<HTMLInputElement>object.target).disabled = true;
-        let divLogin = this.recuperarElemento("divLogin");
-        divLogin.hidden = true;
-      } else {
-        alert("El usuario o la contraseña son icorrectas");
-      }
-    } else if (idDelElemento == "btnPost") {
-      let xmlHttp = new XMLHttpRequest();
-      xmlHttp.onreadystatechange = () => {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-          console.log("se ejecuto el post", xmlHttp.responseText);
-        }
-      };
-
-      xmlHttp.open("POST", "http://localhost:8000/usuario", true);
-
-      xmlHttp.setRequestHeader("Content-Type", "application/json");
-      xmlHttp.setRequestHeader("otracosa", "algo");
-
-      let json = { name: "mramos" };
-      xmlHttp.send(JSON.stringify(json));
     } else {
       let input = <HTMLInputElement>object.target;
-      alert(idDelElemento.substring(3) + " - " + input.checked);
       let prenderJson = {
         id: input.getAttribute("idBd"),
         status: input.checked,
