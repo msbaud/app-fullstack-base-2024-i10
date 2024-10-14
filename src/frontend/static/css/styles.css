@@ -148,22 +148,25 @@ footer {
 }
 
 .modal-footer {
+  display: flex;
   justify-content: flex-end;
+  align-items: center !important;
   padding: 10px;
-  background-color: #136377;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  background-color: #136377 !important;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 
 .modal-footer button {
   background-color: #978d01;
   color: #0d0d0d;
   border: none;
-  padding: 10px 10px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
   text-align: center;
+  margin: 0 5px;
 }
 
 .modal-footer button:hover {

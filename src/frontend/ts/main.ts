@@ -7,6 +7,8 @@ class Main implements EventListenerObject {
     btn.addEventListener("click", this);
     let btnBuscar = this.recuperarElemento("btnBuscar");
     btnBuscar.addEventListener("click", this);
+    let linkAyuda = this.recuperarElemento("linkAyuda");
+    linkAyuda.addEventListener("click", this);
     this.buscarDevices();
   }
 
@@ -18,6 +20,8 @@ class Main implements EventListenerObject {
     } else if (idDelElemento === "btnBuscar") {
       console.log("Buscando!");
       this.buscarDevices();
+    } else if (idDelElemento === "linkAyuda") {
+      this.abrirAyudaModal();
     } else {
       let input = <HTMLInputElement>object.target;
       let prenderJson = {
@@ -37,6 +41,21 @@ class Main implements EventListenerObject {
       xmlHttpPost.setRequestHeader("Content-Type", "application/json");
       xmlHttpPost.send(JSON.stringify(prenderJson));
     }
+  }
+
+  /** Abre el modal de ayuda */
+  abrirAyudaModal(): void {
+    let helpModal = this.recuperarElemento("help-modal");
+    helpModal.style.display = "block";
+    let closeHelpModal = this.recuperarElemento("close-help-modal");
+    closeHelpModal.addEventListener("click", () => {
+      helpModal.style.display = "none";
+    });
+    window.addEventListener("click", (event) => {
+      if (event.target === helpModal) {
+        helpModal.style.display = "none";
+      }
+    });
   }
 
   /** Busca los dispositivos en la base de datos y los muestra en el DOM */
