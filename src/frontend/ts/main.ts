@@ -48,33 +48,45 @@ class Main implements EventListenerObject {
 
           for (let item of lista) {
             listaDevices += `
-                        <li class="collection-item avatar">
-                        <img src="./static/images/lightbulb.png" alt="" class="circle">
-                        <span class="title">${item.name}</span>
-                        <p>${item.description} 
-                        </p>
-                        <a href="#!" class="secondary-content">
-                          <div class="switch">
-                              <label>
-                                Off`;
+              <div class="device-card">
+                <div class="device-header">
+                  <img src="./static/images/lightbulb.png" alt="" class="device-icon">
+                  <i class="material-icons edit-icon" data-id="${item.id}" style="cursor: pointer;">edit</i>
+                </div>
+                <div class="device-body">
+                  <h5>${item.name}</h5>
+                  <p>${item.description}</p>
+                  <div class="switch">
+                    <label>
+                      Off`;
             if (item.state) {
               listaDevices += `<input idBd="${item.id}" id="cb_${item.id}" type="checkbox" checked>`;
             } else {
-              listaDevices += `<input idBd="${item.id}"  name="chk" id="cb_${item.id}" type="checkbox">`;
+              listaDevices += `<input idBd="${item.id}" name="chk" id="cb_${item.id}" type="checkbox">`;
             }
-            listaDevices += `      
-                                <span class="lever"></span>
-                                On
-                              </label>
-                            </div>
-                      </a>
-                      </li>`;
+            listaDevices += `
+                      <span class="lever"></span>
+                      On
+                    </label>
+                  </div>
+                </div>
+              </div>`;
           }
+
           ul.innerHTML = listaDevices;
 
           for (let item of lista) {
             let cb = this.recuperarElemento("cb_" + item.id);
             cb.addEventListener("click", this);
+
+            let iconoEditar = document.querySelector(
+              `.edit-icon[data-id="${item.id}"]`
+            );
+            if (iconoEditar) {
+              iconoEditar.addEventListener("click", (event) => {
+                this.abrirEditModal(item);
+              });
+            }
           }
         } else {
           alert("ERROR en la consulta");
@@ -83,14 +95,179 @@ class Main implements EventListenerObject {
     };
 
     xmlHttp.open("GET", "http://localhost:8000/devices", true);
-
     xmlHttp.send();
+  }
+
+  private abrirAgregarModal(): void {
+    const modal = document.getElementById("editar-modal") as HTMLDivElement;
+    const nameInput = document.getElementById(
+      "editar-nombre"
+    ) as HTMLInputElement;
+    const descriptionInput = document.getElementById(
+      "editar-descripcion"
+    ) as HTMLInputElement;
+    const typeInput = document.getElementById(
+      "editar-tipo"
+    ) as HTMLInputElement;
+    const saveButton = document.getElementById(
+      "boton-guardar"
+    ) as HTMLButtonElement;
+    const cancelButton = document.getElementById(
+      "boton-cancelar"
+    ) as HTMLButtonElement;
+    const deleteButton = document.getElementById(
+      "boton-borrar"
+    ) as HTMLButtonElement;
+
+    // Clear the input fields
+    nameInput.value = "";
+    descriptionInput.value = "";
+    typeInput.value = "";
+
+    // Hide the delete button for the add modal
+    deleteButton.style.display = "none";
+
+    saveButton.onclick = () => {
+      const newDevice = {
+        name: nameInput.value,
+        description: descriptionInput.value,
+        type: parseInt(typeInput.value, 10),
+        state: false, // Default state for new devices
+      };
+      this.agregarDevice(newDevice);
+      modal.style.display = "none";
+    };
+
+    cancelButton.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    modal.style.display = "block";
+  }
+
+  private agregarDevice(device: any): void {
+    fetch("http://localhost:8000/device/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(device),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Dispositivo agregado correctamente");
+          this.buscarDevices(); // Refresh the list after adding the device
+        } else {
+          alert("Error al agregar el dispositivo");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error al agregar el dispositivo");
+      });
+  }
+
+  private abrirEditModal(device: any): void {
+    const modal = document.getElementById("editar-modal") as HTMLDivElement;
+    const nameInput = document.getElementById(
+      "editar-nombre"
+    ) as HTMLInputElement;
+    const descriptionInput = document.getElementById(
+      "editar-descripcion"
+    ) as HTMLInputElement;
+    const typeInput = document.getElementById(
+      "editar-tipo"
+    ) as HTMLInputElement;
+    const botonGuardar = document.getElementById(
+      "boton-guardar"
+    ) as HTMLButtonElement;
+    const botonCancelar = document.getElementById(
+      "boton-cancelar"
+    ) as HTMLButtonElement;
+    const botonBorrar = document.getElementById(
+      "boton-borrar"
+    ) as HTMLButtonElement;
+
+    nameInput.value = device.name;
+    descriptionInput.value = device.description;
+    typeInput.value = device.type.toString();
+
+    botonGuardar.onclick = () => {
+      device.name = nameInput.value;
+      device.description = nameInput.value;
+      device.type = parseInt(typeInput.value, 10);
+      this.actualizarDevice(device);
+      modal.style.display = "none";
+    };
+
+    botonCancelar.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    botonBorrar.onclick = () => {
+      if (confirm("Desea eliminar este dispositivo?")) {
+        this.borrarDevice(device.id);
+        modal.style.display = "none";
+      }
+    };
+
+    modal.style.display = "block";
+  }
+
+  private actualizarDevice(device: any): void {
+    fetch(`http://localhost:8000/device/${device.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(device),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Dispositivo actualizado correctamente");
+          this.buscarDevices(); // Actualiza la lista cuando un dispositivo fue modificado.
+        } else {
+          alert("Error al actualizar el dispositivo");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error al actualizar el dispositivo");
+      });
+  }
+
+  private borrarDevice(deviceId: number): void {
+    fetch(`http://localhost:8000/device/${deviceId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Dispositivo eliminado correctamente");
+          // Elimina el dispositivo del DOM
+          let deviceElement = document
+            .querySelector(`.edit-icon[data-id="${deviceId}"]`)
+            .closest("li");
+          if (deviceElement) {
+            deviceElement.remove();
+          }
+        } else {
+          alert("Error al eliminar el dispositivo");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error al eliminar el dispositivo");
+      });
   }
 
   private recuperarElemento(id: string): HTMLInputElement {
     return <HTMLInputElement>document.getElementById(id);
   }
 }
+
 window.addEventListener("load", () => {
   let main: Main = new Main();
 });
