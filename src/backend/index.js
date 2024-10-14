@@ -27,6 +27,24 @@ app.post("/device/", function (req, res) {
   );
 });
 
+app.put("/device/:id", function (req, res) {
+  const deviceId = req.params.id;
+  const { name, description, type } = req.body;
+  utils.query(
+    "UPDATE Devices SET name = ?, description = ?, type = ? WHERE id = ?",
+    [name, description, type, deviceId],
+    (error, result) => {
+      if (error) {
+        res.status(409).send(error.sqlMessage);
+      } else {
+        res
+          .status(200)
+          .send({ message: "Dispositivo actualizado correctamente" });
+      }
+    }
+  );
+});
+
 app.get("/device/:id", function (req, res) {
   utils.query(
     "SELECT id,description FROM Devices where id=" + req.params.id,
