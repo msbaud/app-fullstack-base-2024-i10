@@ -30,6 +30,8 @@ En el archivo `.vscode/settings.json` se configuró como formateador por defecto
 
 Respecto de la metodología de desarrollo, se realizó el registro de avance de los cambios del código realizando múltiples commits vinculados a las funcionalidades implementadas.
 
+Se modificó el archivo de configuración de Docker `docker-compose.yml` para garantizar que node-backend se inicie cuando la base de datos se encuentra totalmente operativa.
+
 ### Front-end
 
 Teniendo en cuenta la parte visual y experiencia de usuario, se realizaron las siguientes modificaciones:
@@ -57,6 +59,8 @@ Desde el punto de vista funcional, se modificaron algunas rutas de la API y se i
 - `{get} /device/:id`: selecciona los datos de un dispositivo, a partir del `ID` presente en la ruta.
 - `{put} /device/:id`: actualiza los datos de un dispositivo, a partir del `ID` presente en la ruta.
 - `{delete} /device/:id`: borra un dispositivo existente de la lista, a partir del `ID` presente en la ruta.
+
+Como registro de las operaciones realizadas en todas las rutas se generan entradas de log que se muestran por consola.
 
 ## Comenzando 🚀
 
