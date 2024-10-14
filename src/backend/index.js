@@ -13,26 +13,30 @@ app.use(express.static("/home/node/app/static/"));
 
 //=======[ Main module code ]==================================================
 
+/**
+ * @api {post} /device/new Crear un nuevo dispositivo. Asume que el estado inicial es apagado.
+ */
 app.post("/device/new", function (req, res) {
   const { name, description, type } = req.body;
   utils.query(
     "INSERT INTO Devices (name, description, type, state) VALUES (?, ?, ?, ?)",
-    [name, description, type, false], // Asume que el estado inicial es apagado.
+    [name, description, type, false],
     (error, result) => {
       if (error) {
         res.status(409).send(error.sqlMessage);
       } else {
-        res
-          .status(201)
-          .send({
-            message: "Dispositivo creado correctamente",
-            id: result.insertId,
-          });
+        res.status(201).send({
+          message: "Dispositivo creado correctamente",
+          id: result.insertId,
+        });
       }
     }
   );
 });
 
+/**
+ * @api {post} /device/ Actualizar el estado de un dispositivo.
+ */
 app.post("/device/", function (req, res) {
   utils.query(
     "update Devices set state=" + req.body.status + " where id=" + req.body.id,
@@ -41,12 +45,18 @@ app.post("/device/", function (req, res) {
         console.log(err.sqlMessage);
         res.status(409).send(err.sqlMessage);
       } else {
-        res.send("ok " + resp);
+        res.status(200).json({
+          message: "Dispositivo actualizado correctamente",
+          id: req.body.id,
+        });
       }
     }
   );
 });
 
+/**
+ * @api {put} /device/:id Actualizar los datos de un dispositivo.
+ */
 app.put("/device/:id", function (req, res) {
   const deviceId = req.params.id;
   const { name, description, type } = req.body;
@@ -65,6 +75,9 @@ app.put("/device/:id", function (req, res) {
   );
 });
 
+/**
+ * @api {get} /device/:id Obtener los datos de un dispositivo.
+ */
 app.get("/device/:id", function (req, res) {
   utils.query(
     "SELECT id,description FROM Devices where id=" + req.params.id,
@@ -78,6 +91,9 @@ app.get("/device/:id", function (req, res) {
   );
 });
 
+/**
+ * @api {delete} /device/:id Eliminar un dispositivo.
+ */
 app.delete("/device/:id", function (req, res) {
   const deviceId = req.params.id;
   utils.query(
@@ -95,21 +111,9 @@ app.delete("/device/:id", function (req, res) {
   );
 });
 
-app.get("/usuario", function (req, res) {
-  res.send("[{id:1,name:'mramos'},{id:2,name:'fperez'}]");
-});
-//Insert
-app.post("/usuario", function (req, res) {
-  console.log(req.body.id);
-  if (req.body.id != undefined && req.body.name != undefined) {
-    //inset en la tabla
-    res.send();
-  } else {
-    let mensaje = { mensaje: "El id o el name no estaban cargados" };
-    res.status(400).send(JSON.stringify(mensaje));
-  }
-});
-
+/**
+ * @api {get} /devices Obtener una lista de dispositivos configurados.
+ */
 app.get("/devices/", function (req, res, next) {
   console.log("Buscando dispositivos");
 
