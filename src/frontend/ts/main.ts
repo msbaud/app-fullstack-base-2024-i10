@@ -5,7 +5,7 @@ class Main implements EventListenerObject {
     constructor() {
         this.users.push(new Usuario('mramos', '123132'));
         
-        let btn = this.recuperarElemento("btn");
+        let btn = this.recuperarElemento("btnAgregar");
         btn.addEventListener('click', this);
         let btnBuscar = this.recuperarElemento("btnBuscar");
         btnBuscar.addEventListener('click', this);
@@ -16,9 +16,9 @@ class Main implements EventListenerObject {
     }
     handleEvent(object: Event): void {
         let idDelElemento = (<HTMLElement>object.target).id;
-        if (idDelElemento == 'btn') {
-            let divLogin = this.recuperarElemento("divLogin");
-            divLogin.hidden = false;
+        if (idDelElemento == 'btnAgregar') {
+            let divAgregar = this.recuperarElemento("divAgregar");
+            divAgregar.hidden = !divAgregar.hidden;
         } else if (idDelElemento === 'btnBuscar') {
             console.log("Buscando!")
             this.buscarDevices();
