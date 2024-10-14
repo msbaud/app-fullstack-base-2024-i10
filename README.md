@@ -2,14 +2,13 @@
     <img src="doc/gotoiot-logo.png" alt="logo" title="Goto IoT" align="right" width="60" height="60" />
 </a>
 
-Web App Full Stack Base
-=======================
+# Web App Full Stack Base
 
-*Ayudaría mucho si apoyaras este proyecto con una ⭐ en Github!*
+_Ayudaría mucho si apoyaras este proyecto con una ⭐ en Github!_
 
 Este proyecto es una aplicación web fullstack que se ejecuta sobre el ecosistema `Docker`. Está compuesta por un compilador de `TypeScript` que te permite utilizar este superset de JavaScript para poder programar un `cliente web`. También tiene un servicio en `NodeJS` que te permite ejecutar código en backend y al mismo tiempo disponibilizar el código del cliente web para interactar con el servicio. Además tiene una `base de datos` MySQL que puede interactuar con el backend para guardar y consultar datos, y de manera adicional trae un `administrador` de base de datos para poder administrar la base en caso que lo necesites.
 
-La aplicación IoT de base que viene con este proyecto se encarga de crear una tabla llamada `Devices` en la base de datos, y la idea es que vos puedas desarrollar el código de backend y frontend que te permita controlar desde el navegador el estado de los devices de un hogar inteligente - *como pueden ser luces, TVs, ventiladores, persianas, enchufes y otros* - y almacenar los estados de cada uno en la base de datos. 
+La aplicación IoT de base que viene con este proyecto se encarga de crear una tabla llamada `Devices` en la base de datos, y la idea es que vos puedas desarrollar el código de backend y frontend que te permita controlar desde el navegador el estado de los devices de un hogar inteligente - _como pueden ser luces, TVs, ventiladores, persianas, enchufes y otros_ - y almacenar los estados de cada uno en la base de datos.
 
 Realizando estas tareas vas a a tener una aplicación fullstack IoT del mundo real que utiliza tecnologías actuales en la que un backend es capaz de interactuar con una DB para cumplir con las peticiones de control que se le mandan desde el cliente web.
 
@@ -25,7 +24,7 @@ Esta sección es una guía con los pasos escenciales para que puedas poner en ma
 
 ### Instalar las dependencias
 
-Para correr este proyecto es necesario que instales `Docker` y `Docker Compose`. 
+Para correr este proyecto es necesario que instales `Docker` y `Docker Compose`.
 
 En [este artículo](https://www.gotoiot.com/pages/articles/docker_installation_linux/) publicado en nuestra web están los detalles para instalar Docker y Docker Compose en una máquina Linux. Si querés instalar ambas herramientas en una Raspberry Pi podés seguir [este artículo](https://www.gotoiot.com/pages/articles/rpi_docker_installation) de nuestra web que te muestra todos los pasos necesarios.
 
@@ -45,11 +44,11 @@ git clone https://github.com/USER/app-fullstack-base.git
 
 ### Ejecutar la aplicación
 
-Para ejecutar la aplicación tenes que correr el comando `docker-compose up` desde la raíz del proyecto. Este comando va a descargar las imágenes de Docker de node, de typescript, de la base datos y del admin de la DB, y luego ponerlas en funcionamiento. 
+Para ejecutar la aplicación tenes que correr el comando `docker-compose up` desde la raíz del proyecto. Este comando va a descargar las imágenes de Docker de node, de typescript, de la base datos y del admin de la DB, y luego ponerlas en funcionamiento.
 
-Para acceder al cliente web ingresa a a la URL [http://localhost:8000/](http://localhost:8000/) y para acceder al admin de la DB accedé a [localhost:8001/](http://localhost:8001/). 
+Para acceder al cliente web ingresa a a la URL [http://localhost:8000/](http://localhost:8000/) y para acceder al admin de la DB accedé a [localhost:8001/](http://localhost:8001/).
 
-Si pudiste acceder al cliente web y al administrador significa que la aplicación se encuentra corriendo bien. 
+Si pudiste acceder al cliente web y al administrador significa que la aplicación se encuentra corriendo bien.
 
 > Si te aparece un error la primera vez que corres la app, deteńe el proceso y volvé a iniciarla. Esto es debido a que el backend espera que la DB esté creada al iniciar, y en la primera ejecución puede no alcanzar a crearse. A partir de la segunda vez el problema queda solucionado.
 
@@ -80,7 +79,6 @@ En ese archivo está la configuración de la tabla `Devices` y otras configuraci
 Tené en cuenta que la base de datos se crea con permisos de superusuario por lo que no podrías borrar el directorio con tu usuario de sistema, para eso debés hacerlo con permisos de administrador. En ese caso podés ejecutar el comando `sudo rm -r db/data` para borrar el directorio completo.
 
 </details>
-
 
 ## Detalles principales 🔍
 
@@ -113,7 +111,7 @@ Para esta aplicación se usa **PHPMyAdmin**, que es un administrador de base de 
 
 ### El compilador de TypeScript
 
-**TypeScript** es un lenguaje de programación libre y de código abierto desarrollado y mantenido por Microsoft. Es un superconjunto de JavaScript, que esencialmente añade tipos estáticos y objetos basados en clases. Para esta aplicación se usa un compilador de TypeScript basado en una imagen de [Harmish](https://hub.docker.com/r/harmish) en Dockerhub, y está configurado para monitorear en tiempo real los cambios que se realizan sobre el directorio **src/frontend/ts** y automáticamente generar código compilado a JavaScript en el directorio  **src/frontend/js**. Los mensajes del compilador aparecen automáticamente en la terminal al ejecutar el comando **docker-compose up**.
+**TypeScript** es un lenguaje de programación libre y de código abierto desarrollado y mantenido por Microsoft. Es un superconjunto de JavaScript, que esencialmente añade tipos estáticos y objetos basados en clases. Para esta aplicación se usa un compilador de TypeScript basado en una imagen de [Harmish](https://hub.docker.com/r/harmish) en Dockerhub, y está configurado para monitorear en tiempo real los cambios que se realizan sobre el directorio **src/frontend/ts** y automáticamente generar código compilado a JavaScript en el directorio **src/frontend/js**. Los mensajes del compilador aparecen automáticamente en la terminal al ejecutar el comando **docker-compose up**.
 
 ### Ejecución de servicios
 
@@ -172,30 +170,29 @@ Completá todos los detalles de funcionamiento sobre el backend, sus interaccion
 
 Completá todos los endpoints del backend con los metodos disponibles, los headers y body que recibe, lo que devuelve, ejemplos, etc.
 
-1) Devolver el estado de los dispositivos.
+1. Devolver el estado de los dispositivos.
 
 ```json
 {
-    "method": "get",
-    "request_headers": "application/json",
-    "request_body": "",
-    "response_code": 200,
-    "request_body": {
-        "devices": [
-            {
-                "id": 1,
-                "status": true,
-                "description": "Kitchen light"
-            }
-        ]
-    },
+  "method": "get",
+  "request_headers": "application/json",
+  "request_body": "",
+  "response_code": 200,
+  "request_body": {
+    "devices": [
+      {
+        "id": 1,
+        "status": true,
+        "description": "Kitchen light"
+      }
+    ]
+  }
 }
-``` 
+```
 
 </details>
 
 </details>
-
 
 ## Tecnologías utilizadas 🛠️
 
@@ -203,13 +200,13 @@ En esta sección podés ver las tecnologías más importantes utilizadas.
 
 <details><summary><b>Mira la lista completa de tecnologías</b></summary><br>
 
-* [Docker](https://www.docker.com/) - Ecosistema que permite la ejecución de contenedores de software.
-* [Docker Compose](https://docs.docker.com/compose/) - Herramienta que permite administrar múltiples contenedores de Docker.
-* [Node JS](https://nodejs.org/es/) - Motor de ejecución de código JavaScript en backend.
-* [MySQL](https://www.mysql.com/) - Base de datos para consultar y almacenar datos.
-* [PHPMyAdmin](https://www.phpmyadmin.net/) - Administrador web de base de datos.
-* [Material Design](https://material.io/design) - Bibliotecas de estilo responsive para aplicaciones web.
-* [TypeScript](https://www.typescriptlang.org/) - Superset de JavaScript tipado y con clases.
+- [Docker](https://www.docker.com/) - Ecosistema que permite la ejecución de contenedores de software.
+- [Docker Compose](https://docs.docker.com/compose/) - Herramienta que permite administrar múltiples contenedores de Docker.
+- [Node JS](https://nodejs.org/es/) - Motor de ejecución de código JavaScript en backend.
+- [MySQL](https://www.mysql.com/) - Base de datos para consultar y almacenar datos.
+- [PHPMyAdmin](https://www.phpmyadmin.net/) - Administrador web de base de datos.
+- [Material Design](https://material.io/design) - Bibliotecas de estilo responsive para aplicaciones web.
+- [TypeScript](https://www.typescriptlang.org/) - Superset de JavaScript tipado y con clases.
 
 </details>
 
@@ -221,28 +218,28 @@ Si estás interesado en el proyecto y te gustaría sumar fuerzas para que siga c
 
 Goto IoT es una plataforma que publica material y proyectos de código abierto bien documentados junto a una comunidad libre que colabora y promueve el conocimiento sobre IoT entre sus miembros. Acá podés ver los links más importantes:
 
-* **[Sitio web](https://www.gotoiot.com/):** Donde se publican los artículos y proyectos sobre IoT. 
-* **[Github de Goto IoT:](https://github.com/gotoiot)** Donde están alojados los proyectos para descargar y utilizar. 
-* **[Comunidad de Goto IoT:](https://groups.google.com/g/gotoiot)** Donde los miembros de la comunidad intercambian información e ideas, realizan consultas, solucionan problemas y comparten novedades.
-* **[Twitter de Goto IoT:](https://twitter.com/gotoiot)** Donde se publican las novedades del sitio y temas relacionados con IoT.
-* **[Wiki de Goto IoT:](https://github.com/gotoiot/doc/wiki)** Donde hay información de desarrollo complementaria para ampliar el contexto.
+- **[Sitio web](https://www.gotoiot.com/):** Donde se publican los artículos y proyectos sobre IoT.
+- **[Github de Goto IoT:](https://github.com/gotoiot)** Donde están alojados los proyectos para descargar y utilizar.
+- **[Comunidad de Goto IoT:](https://groups.google.com/g/gotoiot)** Donde los miembros de la comunidad intercambian información e ideas, realizan consultas, solucionan problemas y comparten novedades.
+- **[Twitter de Goto IoT:](https://twitter.com/gotoiot)** Donde se publican las novedades del sitio y temas relacionados con IoT.
+- **[Wiki de Goto IoT:](https://github.com/gotoiot/doc/wiki)** Donde hay información de desarrollo complementaria para ampliar el contexto.
 
 ## Muestas de agradecimiento 🎁
 
 Si te gustó este proyecto y quisieras apoyarlo, cualquiera de estas acciones estaría más que bien para nosotros:
 
-* Apoyar este proyecto con una ⭐ en Github para llegar a más personas.
-* Sumarte a [nuestra comunidad](https://groups.google.com/g/gotoiot) abierta y dejar un feedback sobre qué te pareció el proyecto.
-* [Seguirnos en twitter](https://github.com/gotoiot/doc/wiki) y dejar algún comentario o like.
-* Compartir este proyecto con otras personas.
+- Apoyar este proyecto con una ⭐ en Github para llegar a más personas.
+- Sumarte a [nuestra comunidad](https://groups.google.com/g/gotoiot) abierta y dejar un feedback sobre qué te pareció el proyecto.
+- [Seguirnos en twitter](https://github.com/gotoiot/doc/wiki) y dejar algún comentario o like.
+- Compartir este proyecto con otras personas.
 
 ## Autores 👥
 
 Las colaboraciones principales fueron realizadas por:
 
-* **[Agustin Bassi](https://github.com/agustinBassi)**: Ideación, puesta en marcha y mantenimiento del proyecto.
-* **[Ernesto Giggliotti](https://github.com/ernesto-g)**: Creación inicial del frontend, elección de Material Design.
-* **[Brian Ducca](https://github.com/brianducca)**: Ayuda para conectar el backend a la base de datos, puesta a punto de imagen de Docker.
+- **[Agustin Bassi](https://github.com/agustinBassi)**: Ideación, puesta en marcha y mantenimiento del proyecto.
+- **[Ernesto Giggliotti](https://github.com/ernesto-g)**: Creación inicial del frontend, elección de Material Design.
+- **[Brian Ducca](https://github.com/brianducca)**: Ayuda para conectar el backend a la base de datos, puesta a punto de imagen de Docker.
 
 También podés mirar todas las personas que han participado en la [lista completa de contribuyentes](https://github.com/###/contributors).
 
