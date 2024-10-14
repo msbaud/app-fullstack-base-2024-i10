@@ -34,10 +34,31 @@
             >Smart Home</a
           >
           <ul id="nav-mobile" class="right" style="margin-right: 15px">
-            <li><a href="#">Ayuda</a></li>
+            <li><a href="#" id="linkAyuda">Ayuda</a></li>
           </ul>
         </div>
       </nav>
+      <!-- Help Modal -->
+      <div id="help-modal" class="modal">
+        <div class="modal-content">
+          <h4>Ayuda</h4>
+          <p>
+            Este panel de control muestra el estado de los dispositivos
+            configurados. Es posible realizar las cuatro operaciones CRUD:
+            Crear, Leer, Actualizar y Borrar. La lista de dispositivos se
+            actualiza automáticamente.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            id="close-help-modal"
+            class="modal-close waves-effect waves-light"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+
       <!-- Page Body -->
       <div class="container">
         <div class="row">
@@ -52,7 +73,8 @@
               class="btn waves-effect waves-light button-view"
               name="add_button"
             >
-              Agregar
+              Agregar dispositivo
+              <i class="material-icons left">add</i>
             </button>
             <button
               id="btnBuscar"
@@ -104,22 +126,13 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button
-          id="boton-guardar"
-          class="modal-close waves-effect waves-green btn-flat"
-        >
+        <button id="boton-guardar" class="modal-close waves-effect waves-green">
           Guardar
         </button>
-        <button
-          id="boton-cancelar"
-          class="modal-close waves-effect waves-red btn-flat"
-        >
+        <button id="boton-cancelar" class="modal-close waves-effect waves-red">
           Cancelar
         </button>
-        <button
-          id="boton-borrar"
-          class="modal-close waves-effect waves-red btn-flat"
-        >
+        <button id="boton-borrar" class="modal-close waves-effect waves-red">
           Borrar
         </button>
       </div>
