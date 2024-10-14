@@ -35,52 +35,19 @@
             >Smart Home</a
           >
           <ul id="nav-mobile" class="right" style="margin-right: 15px">
-            <li><a href="#">Help</a></li>
+            <li><a href="#">Ayuda</a></li>
           </ul>
         </div>
       </nav>
       <!-- Page Body -->
       <div class="container">
-        <br />
-        <h1 id="tit">texto</h1>
-        <h3>Smart Home Web asdas!</h3>
-
-        <br />
         <div class="row">
-          <div class="input-field col s12 m12 l6 xl6" hidden id="divAgregar">
-            <div class="row">
-              <div class="input-field col s6 m6 l6 xl6">
-                <input placeholder="Lámpara" id="dispName" type="text" />
-                <label for="userName">Nombre del Dispositivo</label>
-              </div>
-              <div class="input-field col s6 m6 l6 xl6">
-                <input id="userPass" type="password" />
-                <label for="userPass">Contraseña</label>
-              </div>
-              <div>
-                <button
-                  id="btnAdd"
-                  class="btn-large waves-effect waves-light"
-                  type="button"
-                >
-                  Agregar dispositivo
-                  <i class="material-icons left">face</i>
-                </button>
-              </div>
-            </div>
-            <textarea
-              id="textarea_1"
-              class="materialize-textarea"
-              style="height: 150px"
-              readonly
-            ></textarea>
-          </div>
-          <div class="col s12 m12 l6 xl6">
+          <div class="col s12">
             <ul id="list" class="collection"></ul>
           </div>
         </div>
         <div class="row">
-          <div class="col s4 m4 l2 xl2">
+          <div class="col s12">
             <button
               id="btnAgregar"
               class="btn waves-effect waves-light button-view"
@@ -94,13 +61,6 @@
               name="hello_button"
             >
               Buscar
-            </button>
-            <button
-              id="btnPost"
-              class="btn waves-effect waves-light button-view"
-              name="hello_button"
-            >
-              Ejecutar POST
             </button>
           </div>
         </div>
@@ -125,6 +85,44 @@
         </div>
       </div>
     </footer>
+    <!-- Edit Modal -->
+    <div id="editar-modal" class="modal">
+      <div class="modal-content">
+        <h4>Edit Device</h4>
+        <div class="input-field">
+          <input id="editar-nombre" type="text" class="validate" />
+          <label for="editar-nombre">Name</label>
+        </div>
+        <div class="input-field">
+          <input id="editar-descripcion" type="text" class="validate" />
+          <label for="editar-descripcion">Description</label>
+        </div>
+        <div class="input-field">
+          <input id="editar-tipo" type="number" class="validate" />
+          <label for="editar-tipo">Type</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          id="boton-guardar"
+          class="modal-close waves-effect waves-green btn-flat"
+        >
+          Guardar
+        </button>
+        <button
+          id="boton-cancelar"
+          class="modal-close waves-effect waves-red btn-flat"
+        >
+          Cancelar
+        </button>
+        <button
+          id="boton-borrar"
+          class="modal-close waves-effect waves-red btn-flat"
+        >
+          Borrar
+        </button>
+      </div>
+    </div>
     <!--JavaScript at end of body for optimized loading-->
   </body>
 </html>
