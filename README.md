@@ -32,13 +32,15 @@ Respecto de la metodología de desarrollo, se realizó el registro de avance de 
 
 ### Front-end
 
-Desde el punto de vista visual, se realizaron las siguientes modificaciones:
+Teniendo en cuenta la parte visual y experiencia de usuario, se realizaron las siguientes modificaciones:
 
 - Se cambió el estilo de todos los elementos siguiendo una paleta de colores inspirada en el videojuego `Cyberpunk 2077`.
 - La lista de dispositivos se pasó a un formato de tarjetas dentro de una grilla responsiva que se adapta al ancho de la pantalla.
+- Se modificó la actualización de la lista de dispositivos para que se realice de manera automática. Al mismo tiempo, se mantuvo el botón `Buscar` para actualizar la lista de forma manual.
 - Se cambiaron los íconos a la última versión de [Material Design](https://fonts.google.com/icons).
 - Se modificó un botón para agregar nuevos dispositivos, con el ícono `+` correspondiente. Al presionar este botón se dispara un modal que permite al usuario introducir los campos de `Nombre`, `Descripción` y `Tipo` del dispositivo. Una vez ingresados los datos se puede guardar o cancelar la acción.
 - En las tarjetas para cada dispositivo, se agregó el ícono de un lápiz que dispara un modal para editar los valores del dispositivo, y también para eliminar el dispsitivo completamente. Para ello se presentan tres botones, `Guardar`, `Cancelar` y `Borrar`.
+- Se implementó un modal con un breve texto que se dispara al presionar sobre el link de `Ayuda`.
 
 <div style="display: flex; justify-content: space-around;">
   <img src="doc/agregar-dispositivo.png" alt="Agregar" style="width: 45%;">
@@ -46,6 +48,15 @@ Desde el punto de vista visual, se realizaron las siguientes modificaciones:
 </div>
 
 ### Back-end
+
+Desde el punto de vista funcional, se modificaron algunas rutas de la API y se implementaron otras, con sus respectivas operaciones sobre la base de datos. Los verbos REST utilizados fueron POST, GET, PUT y DELETE, que coinciden con las operaciones CRUD: **Crear, Leer, Actualizar y Borrar**.
+
+- `{post} /device/new`: crear un nuevo dispositivo con estado inicial apagado. Inserta un nuevo elemento en la tabla de dispositivos, cuyo campo `ID` se asigna automáticamente y de manera incremental.
+- `{post} /device/`: asigna un nuevo estado a un dispositivo. El campo `ID` se pasa en el cuerpo de la petición.
+- `{get} /devices`: obtiene la lista de dispositivos configurados.
+- `{get} /device/:id`: selecciona los datos de un dispositivo, a partir del `ID` presente en la ruta.
+- `{put} /device/:id`: actualiza los datos de un dispositivo, a partir del `ID` presente en la ruta.
+- `{delete} /device/:id`: borra un dispositivo existente de la lista, a partir del `ID` presente en la ruta.
 
 ## Comenzando 🚀
 
